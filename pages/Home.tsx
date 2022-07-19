@@ -13,8 +13,6 @@ function Home() {
         <div className='col-md-5' style={{ margin: "50px auto" }}>
           <Input />
         </div>
-        <Modal login={data.login} />
-        <PRsModal />
       </div>
       {!pending ? <UsersList /> : <h1> ...loading </h1>}
     </div>

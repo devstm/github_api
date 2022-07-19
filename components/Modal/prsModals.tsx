@@ -4,12 +4,10 @@ import styles from '../../styles/Modal.module.css';
 function PRsModal() {
   const { data, showModal, pending } = useSelector((store: any) => store.prs);
   const dispatch = useDispatch();
-
   const onHide = () => {
     dispatch(hide());
   };
   return (
-    console.log(data),
     showModal &&
       (!pending ? (
         <div className={styles.modal} id='myModal'>
@@ -22,23 +20,12 @@ function PRsModal() {
             </div>
             <div className={styles['modal-body']}>
               <div className='list-group'>
-                {/* {data.repos.map((repo: any, index: number) => (
-                  <button key={index}
-                    // onClick={handleClick}
-                    className='list-group-item list-group-item-action flex-column align-items-start'
-                  >
-                    <div className='d-flex w-100 justify-content-between'>
-                      <h5 className='mb-1'>{repo.name}</h5>
-                      <small>{repo.created_at}</small>
+                {data.map((pr: any, index: number) => (
+                    <div key={index} className='d-flex w-100 justify-content-between'>
+                      <h5 className='mb-1'>{pr.title}</h5>
+                      <small>{pr.created_at}</small>
                     </div>
-                    <p className='mb-1'>
-                      {repo.description}
-                    </p>
-                    <small>watchers: {repo.watchers_count} </small>
-                    <small>forks: {repo.forks_count} </small>
-                    <small>stargazers: {repo.stargazers_count} </small>
-                  </button>
-                ))} */}
+                ))}
               </div>
             </div>
             <div className={styles['modal-footer']}>

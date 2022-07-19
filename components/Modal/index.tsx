@@ -4,11 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { hide } from '../../redux/slices/repoSlice';
 import { show, getPRs } from '../../redux/slices/prsSlice';
 import styles from '../../styles/Modal.module.css';
-function Modal({login} : any) {
+function Modal({ login }: any) {
   const { data, showModal, pending } = useSelector((store: any) => store.repos);
   const dispatch = useDispatch();
-  const handleClick = () => {
-    dispatch(getPRs(login));
+  const handleClick = (id:any) => {
+    console.log(id);
+    dispatch(getPRs(id));
     dispatch(show());
   };
   const onHide = () => {
@@ -49,18 +50,21 @@ function Modal({login} : any) {
               </div>
               <h5 className='mt-2 mb-0'>Repos:</h5>
               <div className='list-group'>
-                {data.repos.map((repo: any, index: number) => (
-                  <button key={index}
-                    onClick={handleClick}
+                { data && data.repos.map((repo: any, index: number) => (
+                  <button
+                    id={repo.full_name}
+                    key={index}
+                    onClick={({target}: any)=>{
+                      console.log(target.id);
+                      handleClick(target.id)
+                    }}
                     className='list-group-item list-group-item-action flex-column align-items-start'
                   >
                     <div className='d-flex w-100 justify-content-between'>
                       <h5 className='mb-1'>{repo.name}</h5>
                       <small>{repo.created_at}</small>
                     </div>
-                    <p className='mb-1'>
-                      {repo.description}
-                    </p>
+                    <p className='mb-1'>{repo.full_name}</p>
                     <small>watchers: {repo.watchers_count} </small>
                     <small>forks: {repo.forks_count} </small>
                     <small>stargazers: {repo.stargazers_count} </small>

@@ -12,7 +12,7 @@ export const getPRs = createAsyncThunk(
   'prs/getPRs',
   async (data: any, thunkAPI) => {
     const resp = await axios.get(
-      `https://api.github.com/repos/${data.username}/${data.repo}/pulls`
+      `https://api.github.com/repos/${data}/pulls`
     );
     return resp.data;
   }
@@ -41,6 +41,7 @@ export const reposSlice = createSlice({
         state.pending = true;
       })
       .addCase(getPRs.fulfilled, (state, { payload }) => {
+        console.log(payload);
         state.pending = false;
         state.data = payload;
       })
